@@ -1,0 +1,40 @@
+gcc -c -g -Wall -D_FILE_OFFSET_BITS=64 tfs.c -o tfs.o
+tfs.c: In function ‘tfs_readdir’:
+tfs.c:615:7: warning: unused variable ‘r_stat’ [-Wunused-variable]
+   int r_stat = readdb(block_num, (void*) buff);
+       ^
+tfs.c:605:6: warning: unused variable ‘w_node_stat’ [-Wunused-variable]
+  int w_node_stat = writei(node_buff.ino, &node_buff);
+      ^
+tfs.c: In function ‘tfs_mkdir’:
+tfs.c:675:6: warning: unused variable ‘w_stat’ [-Wunused-variable]
+  int w_stat = writei(free_inode, &inode_buff);
+      ^
+tfs.c:659:6: warning: variable ‘dir_add_stat’ set but not used [-Wunused-but-set-variable]
+  int dir_add_stat = dir_add(inode_buff, free_inode, base, strlen(base)); // This will add the target directory to parent directory
+      ^
+tfs.c:653:6: warning: unused variable ‘node_stat’ [-Wunused-variable]
+  int node_stat = get_node_by_path(directory, 0, &inode_buff); // Buff now has the inode information of directory
+      ^
+tfs.c: In function ‘tfs_read’:
+tfs.c:796:7: warning: unused variable ‘r_db_stat’ [-Wunused-variable]
+   int r_db_stat = readdb(block_num, buff);
+       ^
+tfs.c:786:6: warning: unused variable ‘node_stat’ [-Wunused-variable]
+  int node_stat = get_node_by_path(path, 0, &inode_buff);
+      ^
+tfs.c: In function ‘tfs_write’:
+tfs.c:838:8: warning: unused variable ‘r_db_stat’ [-Wunused-variable]
+    int r_db_stat = readdb(block_num, buff);
+        ^
+tfs.c:843:8: warning: unused variable ‘w_inode_stat’ [-Wunused-variable]
+    int w_inode_stat = writei(inode_buff.ino, &inode_buff);
+        ^
+tfs.c:854:8: warning: unused variable ‘w_db_stat’ [-Wunused-variable]
+    int w_db_stat = readdb(block_num, buff);
+        ^
+tfs.c:822:6: warning: unused variable ‘node_stat’ [-Wunused-variable]
+  int node_stat = get_node_by_path(path, 0, &inode_buff);
+      ^
+gcc -c -g -Wall -D_FILE_OFFSET_BITS=64 block.c -o block.o
+gcc tfs.o block.o -lfuse -o tfs
